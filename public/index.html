@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kubernetes Joke API</title>
+    <style>
+        body { font-family: sans-serif; display: flex; flex-direction: column; align-items: center; justify-content: center; height: 100vh; background-color: #f0f0f0; }
+        .joke-card { background: white; padding: 2rem; border-radius: 10px; box-shadow: 0 4px 6px rgba(0,0,0,0.1); max-width: 400px; text-align: center; }
+        button { padding: 10px 20px; margin-top: 1rem; border: none; border-radius: 5px; background-color: #007bff; color: white; cursor: pointer; }
+    </style>
+</head>
+<body>
+    <div class="joke-card">
+        <h2 id="setup">Loading...</h2>
+        <p id="punchline"></p>
+        <button onclick="fetchJoke()">Get New Joke</button>
+    </div>
+    <script>
+        async function fetchJoke() {
+            document.getElementById('setup').innerText = 'Loading...';
+            document.getElementById('punchline').innerText = '';
+            const res = await fetch('/joke');
+            const data = await res.json();
+            document.getElementById('setup').innerText = data.setup;
+            document.getElementById('punchline').innerText = data.punchline;
+        }
+        fetchJoke();
+    </script>
+</body>
+</html>
